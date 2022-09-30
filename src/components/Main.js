@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-
-//Form
-import { FaPlus } from "react-icons/fa";
-
-//tasks
-import { FaEdit, FaWindowClose } from "react-icons/fa";
+import Form from "./Form/index";
+import Tasks from "./Tasks/index";
 
 import "./Main.css";
 
@@ -15,11 +11,21 @@ class Main extends Component {
     index: -1,
   };
 
-  handleChange = (e) => {
-    this.setState({
-      newTask: e.target.value,
-    });
-  };
+  componentDidMount() {
+    const tasks = JSON.parse(localStorage.getItem("tasks"));
+
+    if (!tasks) return;
+
+    this.setState({ tasks });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+
+    if (tasks === prevState.tasks) return;
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -27,15 +33,17 @@ class Main extends Component {
     let { newTask } = this.state;
     newTask = newTask.trim();
 
-    if (tasks.indexOf(newTask) !== -1) return;
+    if (tasks.indexOf(newTask) !== -1 || newTask === "") return;
 
     const newTasks = [...tasks];
 
     if (index === -1) {
+      console.log(newTask);
       this.setState({
         tasks: [...newTasks, newTask],
         newTask: "",
       });
+      console.log(newTask);
     } else {
       newTasks[index] = newTask;
 
@@ -44,6 +52,12 @@ class Main extends Component {
         index: -1,
       });
     }
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      newTask: e.target.value,
+    });
   };
 
   handleDelete = (e, index) => {
@@ -69,32 +83,19 @@ class Main extends Component {
 
     return (
       <div className="main">
-        <h1>Lista de tarefas</h1>
+        <h1>My Task List</h1>
 
-        <form action="#" onSubmit={this.handleSubmit} className="form">
-          <input value={newTask} onChange={this.handleChange} type="text" />
-          <button type="submit">
-            <FaPlus />
-          </button>
-        </form>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          newTask={newTask}
+        />
 
-        <ul className="tasks">
-          {tasks.map((task, index) => (
-            <li key={task}>
-              {task}
-              <div>
-                <FaEdit
-                  onClick={(e) => this.handleEdit(e, index)}
-                  className="edit_task"
-                />
-                <FaWindowClose
-                  onClick={(e) => this.handleDelete(e, index)}
-                  className="delete_task"
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
+        <Tasks
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+          tasks={tasks}
+        />
       </div>
     );
   }
