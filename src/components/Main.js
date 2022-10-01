@@ -37,7 +37,6 @@ class Main extends Component {
     newTask = newTask.trim();
 
     if (!openfield) {
-      console.log("abriu");
       this.setState({
         openfield: true,
       });
@@ -65,6 +64,13 @@ class Main extends Component {
         console.log("fechou");
       }
     }
+  };
+
+  handleClose = (e) => {
+    this.setState({
+      openfield: false,
+      newTask: "",
+    });
   };
 
   handleChange = (e) => {
@@ -111,6 +117,7 @@ class Main extends Component {
           handleChange={this.handleChange}
           newTask={newTask}
           openfield={openfield}
+          handleClose={this.handleClose}
         />
       </div>
     );

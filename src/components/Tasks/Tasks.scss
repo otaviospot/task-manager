@@ -14,9 +14,27 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 28px;
+    padding: 28px 18px 28px 28px;
 }
 
 .single_task span {
     font-size: 16px;
+}
+
+.task_btns {
+    display: flex;
+    font-size: 20px;
+    box-sizing: border-box;
+    padding-left: 10px;
+
+    svg {
+        transition: all .5s;
+        will-change: color;
+        color: #B6B6B6;
+        cursor: pointer;
+
+        &:hover {
+            color: #F13A00;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FaEdit, FaWindowClose } from "react-icons/fa";
+import { FaPenSquare, FaTimes } from "react-icons/fa";
 
 import "./Tasks.scss";
 
@@ -11,11 +11,11 @@ function Tasks({ handleEdit, handleDelete, tasks }) {
         <div className="single_task" key={task}>
           <span>{task}</span>
           <div className="task_btns">
-            <FaEdit
+            <FaPenSquare
               onClick={(e) => handleEdit(e, index)}
               className="edit_task"
             />
-            <FaWindowClose
+            <FaTimes
               onClick={(e) => handleDelete(e, index)}
               className="delete_task"
             />

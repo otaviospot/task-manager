@@ -36,6 +36,13 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        gap: 10px;
+        transition: all .5s;
+        will-change: background;
+
+        &:hover {
+            background: #C93000;
+        }
     }
 
     &.open {
@@ -44,5 +51,16 @@
         input[type="text"] {
              display: block;
         }
+    }
+}
+
+.close_field  {
+    position: absolute;
+    bottom: 30px;
+    cursor: pointer;
+    color: #B6B6B6;
+    
+    &.hidden {
+        display: none;
     }
 }
