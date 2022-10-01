@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import Form from "./Form/index";
-import Tasks from "./Tasks/index";
+import Header from "./Header/Header";
+import Form from "./Form/Form";
+import Tasks from "./Tasks/Tasks";
 
-import "./Main.css";
+import "./Main.scss";
 
 class Main extends Component {
   state = {
     newTask: "",
     tasks: [],
     index: -1,
+    openfield: false,
   };
 
   componentDidMount() {
@@ -31,26 +33,37 @@ class Main extends Component {
     e.preventDefault();
     const { tasks, index } = this.state;
     let { newTask } = this.state;
+    let { openfield } = this.state;
     newTask = newTask.trim();
 
-    if (tasks.indexOf(newTask) !== -1 || newTask === "") return;
-
-    const newTasks = [...tasks];
-
-    if (index === -1) {
-      console.log(newTask);
+    if (!openfield) {
+      console.log("abriu");
       this.setState({
-        tasks: [...newTasks, newTask],
-        newTask: "",
+        openfield: true,
       });
-      console.log(newTask);
     } else {
-      newTasks[index] = newTask;
+      if (tasks.indexOf(newTask) !== -1 || newTask === "") return;
 
-      this.setState({
-        tasks: [...newTasks],
-        index: -1,
-      });
+      const newTasks = [...tasks];
+
+      if (index === -1) {
+        this.setState({
+          tasks: [...newTasks, newTask],
+          newTask: "",
+          openfield: false,
+        });
+        console.log("fechou");
+      } else {
+        newTasks[index] = newTask;
+
+        this.setState({
+          tasks: [...newTasks],
+          index: -1,
+          newTask: "",
+          openfield: false,
+        });
+        console.log("fechou");
+      }
     }
   };
 
@@ -75,26 +88,29 @@ class Main extends Component {
     this.setState({
       index,
       newTask: tasks[index],
+      openfield: true,
     });
   };
 
   render() {
-    const { newTask, tasks } = this.state;
+    const { newTask, tasks, openfield } = this.state;
 
     return (
       <div className="main">
-        <h1>My Task List</h1>
-
+        <Header />
+        <section className="list_task">
+          <h2 className="task_name">My Task List ({tasks.length})</h2>
+          <Tasks
+            handleEdit={this.handleEdit}
+            handleDelete={this.handleDelete}
+            tasks={tasks}
+          />
+        </section>
         <Form
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           newTask={newTask}
-        />
-
-        <Tasks
-          handleEdit={this.handleEdit}
-          handleDelete={this.handleDelete}
-          tasks={tasks}
+          openfield={openfield}
         />
       </div>
     );

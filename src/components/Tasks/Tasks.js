@@ -2,15 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FaEdit, FaWindowClose } from "react-icons/fa";
 
-import "./Tasks.css";
+import "./Tasks.scss";
 
 function Tasks({ handleEdit, handleDelete, tasks }) {
   return (
-    <ul className="tasks">
+    <section className="tasks">
       {tasks.map((task, index) => (
-        <li key={task}>
-          {task}
-          <div>
+        <div className="single_task" key={task}>
+          <span>{task}</span>
+          <div className="task_btns">
             <FaEdit
               onClick={(e) => handleEdit(e, index)}
               className="edit_task"
@@ -20,9 +20,9 @@ function Tasks({ handleEdit, handleDelete, tasks }) {
               className="delete_task"
             />
           </div>
-        </li>
+        </div>
       ))}
-    </ul>
+    </section>
   );
 }
 

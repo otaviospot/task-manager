@@ -1,0 +1,19 @@
+.main {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+}
+
+.list_task {
+    box-sizing: border-box;
+    padding: 35px 25px;
+    display: flex;
+    flex-flow: column;
+}
+
+.task_name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;;
+}
+
