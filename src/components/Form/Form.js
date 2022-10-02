@@ -1,16 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import { FaPlus, FaArrowDown } from "react-icons/fa";
+import { FaPlus, FaArrowDown } from 'react-icons/fa';
 
-import "./Form.scss";
+import './Form.scss';
 
-function Form({ handleSubmit, handleChange, newTask, openfield, handleClose }) {
+function Form({
+  handleSubmit,
+  handleChange,
+  newTask,
+  openfield,
+  handleClose,
+  index,
+}) {
   return (
     <form
       action="#"
       onSubmit={handleSubmit}
-      className={`form ${openfield ? "open" : ""}`}
+      className={`form ${openfield ? 'open' : ''}`}
     >
       <input
         value={newTask}
@@ -19,11 +25,11 @@ function Form({ handleSubmit, handleChange, newTask, openfield, handleClose }) {
         type="text"
       />
       <button type="submit">
-        <FaPlus /> Add New Task
+        <FaPlus /> {index !== -1 ? 'Edit Task' : 'Add New Task'}
       </button>
 
       <span
-        className={`close_field ${openfield ? "" : "hidden"}`}
+        className={`close_field ${openfield ? '' : 'hidden'}`}
         onClick={handleClose}
       >
         <FaArrowDown />

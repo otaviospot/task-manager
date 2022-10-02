@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import Header from "./Header/Header";
-import Form from "./Form/Form";
-import Tasks from "./Tasks/Tasks";
+import { Component } from 'react';
+import Header from './Header/Header';
+import Form from './Form/Form';
+import Tasks from './Tasks/Tasks';
 
-import "./Main.scss";
+import './Main.scss';
 
 class Main extends Component {
   state = {
-    newTask: "",
+    newTask: '',
     tasks: [],
     index: -1,
     openfield: false,
   };
 
   componentDidMount() {
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
 
     if (!tasks) return;
 
@@ -26,14 +26,13 @@ class Main extends Component {
 
     if (tasks === prevState.tasks) return;
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     const { tasks, index } = this.state;
-    let { newTask } = this.state;
-    let { openfield } = this.state;
+    let { newTask, openfield } = this.state;
     newTask = newTask.trim();
 
     if (!openfield) {
@@ -41,27 +40,25 @@ class Main extends Component {
         openfield: true,
       });
     } else {
-      if (tasks.indexOf(newTask) !== -1 || newTask === "") return;
+      if (tasks.indexOf(newTask) !== -1 || newTask === '') return;
 
       const newTasks = [...tasks];
 
       if (index === -1) {
         this.setState({
           tasks: [...newTasks, newTask],
-          newTask: "",
+          newTask: '',
           openfield: false,
         });
-        console.log("fechou");
       } else {
         newTasks[index] = newTask;
 
         this.setState({
           tasks: [...newTasks],
           index: -1,
-          newTask: "",
+          newTask: '',
           openfield: false,
         });
-        console.log("fechou");
       }
     }
   };
@@ -69,7 +66,8 @@ class Main extends Component {
   handleClose = (e) => {
     this.setState({
       openfield: false,
-      newTask: "",
+      newTask: '',
+      index: -1,
     });
   };
 
@@ -99,7 +97,7 @@ class Main extends Component {
   };
 
   render() {
-    const { newTask, tasks, openfield } = this.state;
+    const { newTask, tasks, openfield, index } = this.state;
 
     return (
       <div className="main">
@@ -118,6 +116,7 @@ class Main extends Component {
           newTask={newTask}
           openfield={openfield}
           handleClose={this.handleClose}
+          index={index}
         />
       </div>
     );

@@ -1,8 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { FaPenSquare, FaTimes } from "react-icons/fa";
+import PropTypes from 'prop-types';
+import { FaPenSquare, FaTimes } from 'react-icons/fa';
 
-import "./Tasks.scss";
+import './Tasks.scss';
 
 function Tasks({ handleEdit, handleDelete, tasks }) {
   return (
